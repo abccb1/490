@@ -1,4 +1,5 @@
 # How to use:
 
-java -jar server.jar  
-java -jar client.jar
+In each folder, run "make" then
+java chatServer (must run first)  
+then run multiple clients
