@@ -1,5 +1,3 @@
-package com.teamhashtable.chat;
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -7,24 +5,27 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class handleRequest extends Thread {
 	private String username;
 	private String port;
 	private String ip;
 	private String request;
+
 	LinkedHashMap<String, users> userMap;
 	Socket connectionSocket;
 
 	public handleRequest(Socket connectionSocket,
-			LinkedHashMap<String, users> userMap) {
+			     LinkedHashMap<String, users> userMap) {
 		this.userMap = userMap;
 		this.connectionSocket = connectionSocket;
 
 	}
 
 	public void run() {
-
+	    System.out.println("Start handling requests\n");
 		try {
 
 			BufferedReader inFromClient = new BufferedReader(
@@ -62,44 +63,15 @@ public class handleRequest extends Thread {
 					}
 				}
 			}
+			
 
-			while (true) {
-				request = inFromClient.readLine();
-				if (!userMap.containsKey(tempUser.getName())) {
-					outToClient.writeBytes("Please close your chat client and re-register again!\n");
-					break;
-				}
-
-				if (request.equals("GET")) {
-					outToClient.writeBytes("Success\n");
-					String size_of_hashmap = Integer.toString(userMap.size());
-					outToClient.writeBytes(size_of_hashmap + '\n');
-					Iterator<users> it = userMap.values().iterator();
-					while (it.hasNext()) {
-						users currentUser = it.next();
-						outToClient
-								.writeBytes(currentUser.getUserInformation());
-					}
-				} else if (request.equals("LIVE")) {
-					tempUser.liveness();
-				} else if (request.equals("CLOSE")) {
-					outToClient.writeBytes("Success\n");
-					userMap.remove(tempUser.getName());
-					break;
-				}
-			}
-			connectionSocket.close();
+			
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		try {
-			connectionSocket.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
 	}
 }
