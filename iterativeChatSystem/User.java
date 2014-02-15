@@ -1,18 +1,18 @@
-package com.teamhashtable.chat;
+import java.io.Serializable;
 
-public class users {
+public class User implements Serializable{
 	private String name;
 	private String ip;
 	private String port;
 	private boolean status;
 	private long checkedTime;
 
-	public users(String name, String ip, String port) {
+	public User (String name, String ip, String port) {
 		this.name = name;
 		this.ip = ip;
 		this.port = port;
-		status = true;
-		checkedTime = System.nanoTime();
+		this.status = true;
+		this.checkedTime = System.nanoTime();
 	}
 
 	public void changeStatus(boolean status) {
@@ -55,5 +55,4 @@ public class users {
 	public String getName() {
 		return name;
 	}
-
 }
