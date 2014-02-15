@@ -1,5 +1,3 @@
-package com.teamhashtable.chat;
-
 public class users {
 	private String name;
 	private String ip;

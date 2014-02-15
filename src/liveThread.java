@@ -1,5 +1,3 @@
-package com.teamhashtable.chat;
-
 import java.io.DataOutputStream;
 import java.io.IOException;
 

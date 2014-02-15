@@ -1,5 +1,3 @@
-package com.teamhashtable.chat;
-
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 
